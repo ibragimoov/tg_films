@@ -4,7 +4,10 @@ from aiogram.filters import CommandStart
 
 import app.keyboards as kb
 
-import requests
+import request
+
+
+
 
 router = Router()
 
