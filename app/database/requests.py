@@ -9,3 +9,6 @@ async def set_user(tg_id: int):
         if not user:
             session.add(User(tg_id=tg_id))
             await session.commit()
+
+async def buy_book(tg_id: int):
+    async with async_session() as session:

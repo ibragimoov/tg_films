@@ -23,7 +23,7 @@ class Book(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     page_read: Mapped[int] = mapped_column()
     total_pages: Mapped[int] = mapped_column()
-    title: Mapped[int] = mapped_column()
+    title: Mapped[str] = mapped_column()
     user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
 
 async def async_main():
