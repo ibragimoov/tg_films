@@ -6,9 +6,6 @@ import app.keyboards as kb
 
 import request
 
-
-
-
 router = Router()
 
 @router.message(CommandStart())
