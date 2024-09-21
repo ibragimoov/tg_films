@@ -2,7 +2,7 @@ from sqlalchemy import BigInteger, String, ForeignKey
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.ext.asyncio import AsyncAttrs, async_sessionmaker, create_async_engine
 
-engine = create_async_engine(url='sqlite+aiosqlite:///db.sqlite3')
+engine = create_async_engine(url='sqlite+aiosqlite:///db_book.sqlite3')
 
 async_session = async_sessionmaker(engine)
 
@@ -17,21 +17,14 @@ class User(Base):
     tg_id: Mapped[int] = mapped_column(BigInteger())
 
 
-class Category(Base):
-    __tablename__ = 'categories'
+class Book(Base):
+    __tablename__ = 'books'
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    title: Mapped[str] = mapped_column(String(20))
-
-
-class Item(Base):
-    __tablename__ = 'items'
-
-    id: Mapped[int] = mapped_column(primary_key=True)
-    title: Mapped[str] = mapped_column(String(20))
-    description: Mapped[str] = mapped_column(String(40))
-    price: Mapped[int] = mapped_column()
-    category: Mapped[int] = mapped_column(ForeignKey('categories.id'))
+    page_read: Mapped[int] = mapped_column()
+    total_pages: Mapped[int] = mapped_column()
+    title: Mapped[int] = mapped_column()
+    user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
 
 async def async_main():
     async with engine.begin() as conn:
