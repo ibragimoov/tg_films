@@ -1,30 +1,17 @@
-from aiogram.types import (ReplyKeyboardMarkup, KeyboardButton,
-                           InlineKeyboardMarkup, InlineKeyboardButton)
-import requests
-from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
+
+# menu = ReplyKeyboardMarkup(keyboard=[
+#     [KeyboardButton(text='Главная'), KeyboardButton(text='Новости')],
+#     [KeyboardButton(text='Помощь')],
+# ], resize_keyboard=True)
 
 menu = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='каталог', callback_data='catalog')],
-    [InlineKeyboardButton(text='мои книги', callback_data='my_books')],
+    [InlineKeyboardButton(text='Главная', callback_data='main'), InlineKeyboardButton(text='Новости', callback_data='news')],
+    [InlineKeyboardButton(text='Помощь', callback_data='help')]
 ])
 
-
-def books():
-    keyboard = InlineKeyboardBuilder()
-    book_list = requests.get('https://www.googleapis.com/books/v1/volumes?q=search+terms')
-    book_data = book_list.json()['items']
-
-    for book in book_data:
-        keyboard.add(InlineKeyboardButton(text = book['volumeInfo']['title'], callback_data='book|' + book['id']))
-
-    keyboard.add(InlineKeyboardButton(text='Назад', callback_data='back'))
-
-    return keyboard.adjust(1).as_markup()
-
-def back_to_catalog():
-    keyboard = InlineKeyboardBuilder()
-
-    keyboard.add(InlineKeyboardButton(text='Назад', callback_data='back_to_catalog'))
-
-    return keyboard.adjust(1).as_markup()
-
+news = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton(text='Погода', callback_data='weather'), InlineKeyboardButton(text='Бизнесс', callback_data='business')],
+    [InlineKeyboardButton(text='Игры', callback_data='game'), InlineKeyboardButton(text='Ютуб', callback_data='youtube')],
+    [InlineKeyboardButton(text='Музыка', callback_data='music'), InlineKeyboardButton(text='Технологии', callback_data='technologies')]
+])
